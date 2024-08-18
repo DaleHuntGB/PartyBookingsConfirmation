@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, send_file
 import json
 from docx import Document
-from os import BytesIO
+import os
+from io import BytesIO
 
 app = Flask(__name__)
 

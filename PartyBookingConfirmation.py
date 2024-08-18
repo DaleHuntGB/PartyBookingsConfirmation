@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, send_file
 import json
 from docx import Document
-import os
+from os import BytesIO
 
 app = Flask(__name__)
 
@@ -106,8 +106,9 @@ def generate_document():
                         cell.text = cell.text.replace(key, str(value))
 
     # Save the document
-    saveAsFile = f"{CUSTOMER_INFORMATION['CUSTOMER_NAME']} - {party_activity} - Party Confirmation.docx"
-    doc.save(saveAsFile)
+    file_stream = BytesIO()
+    doc.save(file_stream)
+    file_stream.seek(0)  # Move the pointer to the start of the stream
 
     # Send the document as a downloadable file
     return send_file(saveAsFile, as_attachment=True)

@@ -1,66 +1,103 @@
-/* static/styles.css */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
+:root {
+    --dark-color: #3f3f3f;
+    --light-color: #f3f3f3;
+    --freedom-color: #ff00CC;
+    --freedom-color-light: hsl(312, 100%, 92%);
+}
+
+* {
+    margin: 1em;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 h1 {
-    color: #333;
+    font-size: 2rem;
     text-align: center;
 }
 
-form {
-    max-width: 600px;
-    margin: 0 auto;
-    background: white;
-    padding: 20px;
+body {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: var(--light-color);
+    background-color: var(--dark-color);
+}
+
+fieldset
+{
+    border: 1px solid black;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+    padding: 5px 10px;
+    background-color: var(--freedom-color-light);
+    width: 50%;
+    color: var(--dark-color);
 }
 
-fieldset {
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 5px;
+.Container
+{
+    display: flex;
+    justify-content: space-around;
+    column-gap: 1em
 }
 
-legend {
+.ButtonContainer {
+    display: flex;
+    justify-content: space-around;
+    column-gap: 1em;
+}
+
+legend
+{
+    padding: 3px 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: var(--freedom-color);
+    color: white;
     font-weight: bold;
-    color: #333;
 }
 
 label {
-    display: block;
-    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-input[type="text"],
+input[type="number"],
 input[type="email"],
+input[type="password"],
 input[type="date"],
 input[type="time"],
-select {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select
+{
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button[type="submit"] {
-    display: block;
-    width: 100%;
-    background-color: #28a745;
-    color: white;
     padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+    margin: 5px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+    text-align: center;
 }
 
-button[type="submit"]:hover {
-    background-color: #218838;
+button {
+    width: 90%;
+    background-color: var(--freedom-color);
+    color: white;
+    padding: 10px 20px;
+    margin: auto 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+    border: 1px solid black;
+}
+
+button:hover {
+    background-color: var(--freedom-color-light);
+    color: var(--dark-color);
 }

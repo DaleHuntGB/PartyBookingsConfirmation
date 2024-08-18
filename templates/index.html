@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data.SITE_NAME }} - Booking Confirmation</title>
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>{{ data.SITE_NAME }} - Booking Confirmation Generator</h1>
+
+    <form action="/generate_document" method="POST">
+        <!-- Customer Information -->
+        <fieldset>
+            <legend>Customer Information</legend>
+            <label for="customer_name">Name:</label>
+            <input type="text" id="customer_name" name="customer_name" required><br>
+
+            <label for="customer_email">Email:</label>
+            <input type="email" id="customer_email" name="customer_email" required><br>
+
+            <label for="customer_phone">Phone:</label>
+            <input type="text" id="customer_phone" name="customer_phone" required><br>
+        </fieldset>
+
+        <!-- Child Information -->
+        <fieldset>
+            <legend>Child Information</legend>
+            <label for="child_name">Name:</label>
+            <input type="text" id="child_name" name="child_name" required><br>
+
+            <label for="child_age">Age:</label>
+            <input type="number" id="child_age" name="child_age" required><br>
+        </fieldset>
+
+        <!-- Party Information -->
+        <fieldset>
+            <legend>Party Information</legend>
+
+            <label for="party_date">Date:</label>
+            <input type="date" id="party_date" name="party_date" required><br>
+
+            <label for="party_start_time">Start Time:</label>
+            <input type="time" id="party_start_time" name="party_start_time" required><br>
+
+            <label for="party_end_time">End Time:</label>
+            <input type="time" id="party_end_time" name="party_end_time" required><br>
+
+            <label for="party_type">Party Type:</label>
+            <select id="party_type" name="party_type" required>
+                {% for partyType, cost in data.PARTY_TYPES.items() %}
+                    <option value="{{ partyType }}: £{{ cost }}">{{ partyType }}: £{{ cost }}</option>
+                {% endfor %}
+            </select><br>
+
+            <label for="party_room">Party Room:</label>
+            <select id="party_room" name="party_room" required>
+                {% for room in data.ACTIVITY_ROOMS %}
+                    <option value="{{ room }}">{{ room }}</option>
+                {% endfor %}
+            </select><br>
+
+            <label for="party_food_room">Party Food Room:</label>
+            <select id="party_food_room" name="party_food_room" required>
+                {% for foodRoom in data.FOOD_ROOMS %}
+                    <option value="{{ foodRoom }}">{{ foodRoom }}</option>
+                {% endfor %}
+            </select><br>
+        </fieldset>
+
+        <!-- Admin Information -->
+        <fieldset>
+            <legend>Admin Information</legend>
+
+            <label for="date_booked">Date Booked:</label>
+            <input type="date" id="date_booked" name="date_booked" required><br>
+
+            <label for="staff_member">Staff Member:</label>
+            <input type="text" id="staff_member" name="staff_member" required><br>
+        </fieldset>
+
+        <!-- Submit Button -->
+        <button type="submit">Generate Confirmation</button>
+    </form>
+</body>
+</html>

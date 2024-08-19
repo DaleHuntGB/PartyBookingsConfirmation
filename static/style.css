@@ -20,8 +20,8 @@ body {
     font-family: 'Nunito', sans-serif;
     font-size: 1rem;
     line-height: 1.25;
-    color: var(--light-color);
-    background-color: var(--dark-color);
+    color: var(--dark-color);
+    background-color: var(--light-color);
 }
 
 fieldset
@@ -46,6 +46,12 @@ fieldset
     display: flex;
     justify-content: space-around;
     column-gap: 1em;
+}
+
+.CompanyLogo {
+    display: flex;
+    justify-content: center;
+    margin: 1em;
 }
 
 legend

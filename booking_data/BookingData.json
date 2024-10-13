@@ -1,5 +1,5 @@
 {
-    "SITE_NAME": "Portslade Sports Centre", 
+    "SITE_NAME": "Sports Centre",
     "TEMPLATE_DOCUMENT": "PartyBookingConfirmationTemplate.docx", 
     "MAXIMUM_CHILDREN": {
         "ACE Football": "Specified By ACE Football", 

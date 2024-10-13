@@ -6,7 +6,7 @@ This is a Python Application that utilises Flask to create a web application tha
 
 This is hosted on Render and utilises their servers to run the supplied Python Script.
 
-Due to the nature of the Python Script, user information is required to be stored on a server prior to writing to the Word Document, obviously this is a GDPR issue. The solution could be to either encrypt data or self-host the script.
+This uses the BytesIO module to uses server memory to store user information whilst the document is being generated rather than writing it to the server.
 
 A localised version has been developed, however, the web application is significantly faster and more practical.
 

@@ -45,7 +45,7 @@ def generate_document():
     # Split party type and cost
     party_activity, party_cost = party_type.split(": £")
 
-    # Prepare information for document generation
+    # Document: Web Information
     CUSTOMER_INFORMATION = {
         "CUSTOMER_NAME": customer_name,
         "CUSTOMER_EMAIL": customer_email,
@@ -71,10 +71,10 @@ def generate_document():
         "STAFF_MEMBER": staff_member
     }
 
-    # Load the document template
+    # Load Template
     doc = Document(appData["TEMPLATE_DOCUMENT"])
 
-    # Replace placeholders in the document
+    # Replace Keywords
     for paragraph in doc.paragraphs:
         for key, value in {**CUSTOMER_INFORMATION, **CHILD_INFORMATION, **PARTY_INFORMATION, **ADMIN_INFORMATION}.items():
             if key in paragraph.text:
@@ -89,15 +89,14 @@ def generate_document():
                         cell_text = cell_text.replace(key, str(value))
                 cell.text = cell_text
 
-    # Save the document to a BytesIO object
+    # Save The Document - BytesIO uses memory as a temporary storage.
     doc_io = BytesIO()
     doc.save(doc_io)
     doc_io.seek(0)
 
-    # Prepare the filename
     download_filename = f"{CUSTOMER_INFORMATION['CUSTOMER_NAME']} - {party_activity} - Party Confirmation.docx"
 
-    # Send the document as a downloadable file without saving it to disk
+    # Send Document to user for download.
     return send_file(
         doc_io,
         as_attachment=True,

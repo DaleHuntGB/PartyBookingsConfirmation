@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, send_file
 import json
 from docx import Document
-import os
+from io import BytesIO
 
 app = Flask(__name__)
 
@@ -76,41 +76,34 @@ def generate_document():
 
     # Replace placeholders in the document
     for paragraph in doc.paragraphs:
-        for key, value in CUSTOMER_INFORMATION.items():
-            if key in paragraph.text:
-                paragraph.text = paragraph.text.replace(key, value)
-        for key, value in PARTY_INFORMATION.items():
-            if key in paragraph.text:
-                paragraph.text = paragraph.text.replace(key, str(value))
-        for key, value in CHILD_INFORMATION.items():
-            if key in paragraph.text:
-                paragraph.text = paragraph.text.replace(key, str(value))
-        for key, value in ADMIN_INFORMATION.items():
+        for key, value in {**CUSTOMER_INFORMATION, **CHILD_INFORMATION, **PARTY_INFORMATION, **ADMIN_INFORMATION}.items():
             if key in paragraph.text:
                 paragraph.text = paragraph.text.replace(key, str(value))
 
     for table in doc.tables:
         for row in table.rows:
             for cell in row.cells:
-                for key, value in CUSTOMER_INFORMATION.items():
-                    if key in cell.text:
-                        cell.text = cell.text.replace(key, value)
-                for key, value in PARTY_INFORMATION.items():
-                    if key in cell.text:
-                        cell.text = cell.text.replace(key, str(value))
-                for key, value in CHILD_INFORMATION.items():
-                    if key in cell.text:
-                        cell.text = cell.text.replace(key, str(value))
-                for key, value in ADMIN_INFORMATION.items():
-                    if key in cell.text:
-                        cell.text = cell.text.replace(key, str(value))
+                cell_text = cell.text
+                for key, value in {**CUSTOMER_INFORMATION, **CHILD_INFORMATION, **PARTY_INFORMATION, **ADMIN_INFORMATION}.items():
+                    if key in cell_text:
+                        cell_text = cell_text.replace(key, str(value))
+                cell.text = cell_text
 
-    # Save the document
-    saveAsFile = f"{CUSTOMER_INFORMATION['CUSTOMER_NAME']} - {party_activity} - Party Confirmation.docx"
-    doc.save(saveAsFile)
+    # Save the document to a BytesIO object
+    doc_io = BytesIO()
+    doc.save(doc_io)
+    doc_io.seek(0)
 
-    # Send the document as a downloadable file
-    return send_file(saveAsFile, as_attachment=True)
+    # Prepare the filename
+    download_filename = f"{CUSTOMER_INFORMATION['CUSTOMER_NAME']} - {party_activity} - Party Confirmation.docx"
+
+    # Send the document as a downloadable file without saving it to disk
+    return send_file(
+        doc_io,
+        as_attachment=True,
+        download_name=download_filename,
+        mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    )
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

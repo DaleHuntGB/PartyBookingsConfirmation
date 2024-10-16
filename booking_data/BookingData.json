@@ -1,39 +1,56 @@
 {
     "SITE_NAME": "Sports Centre",
-    "TEMPLATE_DOCUMENT": "PartyBookingConfirmationTemplate.docx", 
+    "TEMPLATE_DOCUMENT": "PartyBookingConfirmationTemplate.docx",
     "MAXIMUM_CHILDREN": {
-        "ACE Football": "Specified By ACE Football", 
-        "Football - 01h30": "24", 
-        "Football - 02h00": "24", 
-        "Fun and Games - 01h30": "24", 
-        "Fun and Games - 02h00": "24", 
-        "Jungle Run - 01h30": "35", 
-        "Team Sports - 01h30": "24", 
-        "Team Sports - 02h00": "24", 
-        "Toddler Gym - 01h30": "30", 
+        "ACE Football": "Specified By ACE Football",
+        "Football - 01h30": "24",
+        "Football - 02h00": "24",
+        "Fun and Games - 01h30": "24",
+        "Fun and Games - 02h00": "24",
+        "Jungle Run - 01h30": "35",
+        "Team Sports - 01h30": "24",
+        "Team Sports - 02h00": "24",
+        "Toddler Gym - 01h30": "30",
         "Toddler Gym - 02h00": "30"
-    }, 
-        "ACTIVITY_ROOMS": [
-            "Old Hall", 
-            "New Hall", 
-            "Whittaker Room"
-        ], 
-        "FOOD_ROOMS": [
-            "Lounge", 
-            "Whittaker Room", 
-            "Creche", 
-            "Old Activities Room"
-        ], 
-        "PARTY_TYPES": {
-            "ACE Football": "96", 
-            "Football - 01h30": "115", 
-            "Football - 02h00": "120", 
-            "Fun and Games - 01h30": "132", 
-            "Fun and Games - 02h00": "152", 
-            "Jungle Run - 01h30": "159", 
-            "Team Sports - 01h30": "105", 
-            "Team Sports - 02h00": "135", 
-            "Toddler Gym - 01h30": "122", 
-            "Toddler Gym - 02h00": "152"
-            }
-        }
+    },
+    "ACTIVITY_ROOMS": [
+        "Old Hall",
+        "New Hall",
+        "Whittaker Room"
+    ],
+    "FOOD_ROOMS": [
+        "Lounge",
+        "Whittaker Room",
+        "Creche",
+        "Old Activities Room"
+    ],
+    "PARTY_TYPES": {
+        "ACE Football": "96",
+        "Football - 01h30": "115",
+        "Football - 02h00": "120",
+        "Fun and Games - 01h30": "132",
+        "Fun and Games - 02h00": "152",
+        "Jungle Run - 01h30": "159",
+        "Team Sports - 01h30": "105",
+        "Team Sports - 02h00": "135",
+        "Toddler Gym - 01h30": "122",
+        "Toddler Gym - 02h00": "152"
+    },
+    "ACTIVITY_ROOM_MAPPING": {
+        "ACE Football": ["Old Hall", "New Hall"],
+        "Football - 01h30": ["Old Hall", "New Hall"],
+        "Football - 02h00": ["Old Hall", "New Hall"],
+        "Fun and Games - 01h30": ["Old Hall", "New Hall"],
+        "Fun and Games - 02h00": ["Old Hall", "New Hall"],
+        "Jungle Run - 01h30": ["Old Hall"],
+        "Team Sports - 01h30": ["Old Hall", "New Hall"],
+        "Team Sports - 02h00": ["Old Hall", "New Hall"],
+        "Toddler Gym - 01h30": ["Whittaker Room"],
+        "Toddler Gym - 02h00": ["Whittaker Room"]
+    },
+    "FOOD_ROOM_MAPPING": {
+        "Old Hall": ["Lounge", "Old Activities Room"],
+        "New Hall": ["Creche", "Old Activities Room"],
+        "Whittaker Room": ["Whittaker Room"]
+    }
+}

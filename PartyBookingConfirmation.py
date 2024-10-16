@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, jsonify
 import json
 from docx import Document
 from io import BytesIO
@@ -34,6 +34,24 @@ appData = Load_JSON()
 @app.route('/')
 def index():
     return render_template('index.html', data=appData)
+
+# API to provide mapping based on party type
+@app.route('/room_mapping', methods=['POST'])
+def room_mapping():
+    party_type = request.json.get('party_type')
+    party_room = request.json.get('party_room')
+
+    # Check if a party type is provided
+    if party_type:
+        activity_rooms = appData['ACTIVITY_ROOM_MAPPING'].get(party_type, [])
+        return jsonify(activity_rooms)
+
+    # If a party room is provided
+    if party_room:
+        food_rooms = appData['FOOD_ROOM_MAPPING'].get(party_room, [])
+        return jsonify(food_rooms)
+
+    return jsonify([])
 
 @app.route('/generate_document', methods=['POST'])
 def generate_document():
@@ -119,4 +137,4 @@ def generate_document():
     )
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/style.css">
     <title>{{ data.SITE_NAME }} - Booking Confirmation</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <h1>{{ data.SITE_NAME }}</h1>
@@ -50,22 +51,18 @@
                 <label for="party_type">Party Type</label>
                 <select id="party_type" name="party_type" required>
                     {% for partyType, cost in data.PARTY_TYPES.items() %}
-                        <option value="{{ partyType }}: £{{ cost }}">{{ partyType }}: £{{ cost }}</option>
+                        <option value="{{ partyType }}">{{ partyType }}</option>
                     {% endfor %}
                 </select><br>
 
                 <label for="party_room">Party Room</label>
                 <select id="party_room" name="party_room" required>
-                    {% for room in data.ACTIVITY_ROOMS %}
-                        <option value="{{ room }}">{{ room }}</option>
-                    {% endfor %}
+                    <option value="">Select Party Room</option>
                 </select><br>
 
                 <label for="party_food_room">Party Food Room</label>
                 <select id="party_food_room" name="party_food_room" required>
-                    {% for foodRoom in data.FOOD_ROOMS %}
-                        <option value="{{ foodRoom }}">{{ foodRoom }}</option>
-                    {% endfor %}
+                    <option value="">Select Food Room</option>
                 </select><br>
             </fieldset>
 
@@ -86,5 +83,67 @@
         </div>
 
     </form>
+
+    <script>
+        $(document).ready(function() {
+            // Function to update activity rooms based on party type
+            function updateActivityRooms(partyType) {
+                $.ajax({
+                    url: '/room_mapping',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ party_type: partyType }),
+                    success: function(response) {
+                        $('#party_room').empty();
+                        $('#party_room').append('<option value="">Select Party Room</option>');
+                        response.forEach(function(room) {
+                            $('#party_room').append(`<option value="${room}">${room}</option>`);
+                        });
+
+                        // Automatically trigger food room update based on the first room
+                        const firstRoom = $('#party_room').val();
+                        if (firstRoom) {
+                            updateFoodRooms(firstRoom);
+                        }
+                    }
+                });
+            }
+
+            // Function to update food rooms based on party room
+            function updateFoodRooms(partyRoom) {
+                $.ajax({
+                    url: '/room_mapping',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ party_room: partyRoom }),
+                    success: function(response) {
+                        $('#party_food_room').empty();
+                        $('#party_food_room').append('<option value="">Select Food Room</option>');
+                        response.forEach(function(foodRoom) {
+                            $('#party_food_room').append(`<option value="${foodRoom}">${foodRoom}</option>`);
+                        });
+                    }
+                });
+            }
+
+            // Update rooms when party type is changed
+            $('#party_type').change(function() {
+                let partyType = $(this).val();
+                updateActivityRooms(partyType);
+            });
+
+            // Update food rooms when activity room is changed
+            $('#party_room').change(function() {
+                let partyRoom = $(this).val();
+                updateFoodRooms(partyRoom);
+            });
+
+            // Trigger initial room updates on page load based on the first selected party type
+            const initialPartyType = $('#party_type').val();
+            if (initialPartyType) {
+                updateActivityRooms(initialPartyType);
+            }
+        });
+    </script>
 </body>
 </html>

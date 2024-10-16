@@ -90,7 +90,7 @@ select
 }
 
 button {
-    width: 90%;
+    width: 100%;
     background-color: var(--freedom-color);
     color: white;
     padding: 10px 20px;

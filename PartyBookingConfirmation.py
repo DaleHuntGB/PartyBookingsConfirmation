@@ -3,15 +3,15 @@ import json
 from docx import Document
 from io import BytesIO
 # Memory Check
-import psutil
+# import psutil
 import os
 
 app = Flask(__name__)
 
-def log_memory_usage(label):
-    process = psutil.Process(os.getpid())
-    memory_info = process.memory_info()
-    print(f"{label} - Memory Usage: {memory_info.rss / (1024 * 1024)} MB")  # Memory usage in MB
+# def log_memory_usage(label):
+#     process = psutil.Process(os.getpid())
+#     memory_info = process.memory_info()
+#     print(f"{label} - Memory Usage: {memory_info.rss / (1024 * 1024)} MB")  # Memory usage in MB
 
 # Increase in memory usage indicates that BytesIO is working as expected.
 # Possibly need to integrate GC (Garbage Collection) manually to ensure dumping of information.
@@ -55,7 +55,7 @@ def room_mapping():
 
 @app.route('/generate_document', methods=['POST'])
 def generate_document():
-    log_memory_usage("Pre Generation")
+    # log_memory_usage("Pre Generation")
     # Extract form data
     customer_name = request.form['customer_name']
     customer_email = request.form['customer_email']
@@ -126,7 +126,7 @@ def generate_document():
 
     download_filename = f"{CUSTOMER_INFORMATION['CUSTOMER_NAME']} - {party_activity} - Party Confirmation.docx"
 
-    log_memory_usage("Post Generation")
+    # log_memory_usage("Post Generation")
 
     # Send Document to user for download.
     return send_file(

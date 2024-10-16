@@ -17,4 +17,6 @@ The user access the [Web App](partybookingsconfirmation.onrender.com) and inputs
 
 None, this is a Web Application and is hosted on [Render](https://render.com/) and utilises Flask to build an `index.html` file that the user interacts with. This is accessible via any browser on any operating system. No Python libraries are required for install as this is handled externally.
 
+### Note: If you are accessing the webpage and it is taking time to load, it is in the processes of being deployed. Servers shutdown during downtime.
+
 Built & Maintained by Dale Hunt.
